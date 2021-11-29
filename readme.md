@@ -9,15 +9,20 @@
 4. [What is a Thread?](#What_is_a_Thread)
    1. [Thread_States](#Thread_States)
    2. [C10k Problem](#C10k)
-   3. [Disk copy instructions on Linux](#disk-copy-instructions-on-linux)
 5. [Goroutines](#Goroutines)
    1. [Scheduling](#Scheduling)
 6. [Channels](#Channels)
    1. [Range Channel](#Range_Channel)
    2. [Buffered Channel](#Buffered_Channel)
-   3. [Unbuffered_Channel](#Unbuffered_Channel)
+   3. [Unbuffered Channel](#Unbuffered_Channel)
    4. [Owner Channels](#OwnershipChannel)
 7. [Select](#Select)
+8. [Sync](#Sync)
+   1. [Mutex](#Mutex)
+   2. [Atomic](#Atomic)
+   3. [Conditional Variable](#Conditional_Variable)
+   4. [Sync Once](#Sync_Once)
+   5. [Sync Pool](#Sync_Pool)
 
 <!-- /MarkdownTOC -->
 </details>
@@ -181,3 +186,32 @@ default:
 - Select will block until any of the case is ready.
 - With select we can implement a non-blocking communication and timeout.
 - Select on nil channel will block forever.
+
+<a id="Sync"></a>
+# Sync Package
+Channels are great for communication between goroutines but what if 
+we have like caches, registries and state which are big to  sent over the channel 
+and we want access to these data to be concurrent safe, so that only one goroutine
+has access at a time. 
+
+<a id="Mutex"></a>
+### Mutex
+ - Used for protecting shared resources.
+ - sync.Mutex - Provide exclusive access to a resource.
+```
+mu.Lock()
+balance += amount
+mu.Unlock()
+```
+```
+mu.Lock()
+defer mu.Unlock()
+balance += amount
+```
+- sync.RWMutex - Allow multiple readers. Write lock is exclusive.
+- Mutex is used guards access to a shared resource.
+- The critical section represents the bottleneck between the goroutines.
+
+###Atomic
+
+
