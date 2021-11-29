@@ -1,7 +1,33 @@
-## What is Concurreny?
-- Concurreny is about multiple thinks happening at the same time.
-- Go provides built in support for concurreny.
+# CONTENT
+<details open>
+<summary><b>(click to expand or hide)</b></summary>
+<!-- MarkdownTOC -->
 
+1. [What is Concurrency?](#What_is_Concurrency)
+2. [Why we need to think about Concurrency?](#Why_we_need_to_think_about_Concurrency)
+3. [What is a Process?](#What_is_a_Process)
+4. [What is a Thread?](#What_is_a_Thread)
+   1. [Thread_States](#Thread_States)
+   2. [C10k Problem](#C10k)
+   3. [Disk copy instructions on Linux](#disk-copy-instructions-on-linux)
+5. [Goroutines](#Goroutines)
+   1. [Scheduling](#Scheduling)
+6. [Channels](#Channels)
+   1. [Range Channel](#Range_Channel)
+   2. [Buffered Channel](#Buffered_Channel)
+   3. [Unbuffered_Channel](#Unbuffered_Channel)
+   4. [Owner Channels](#OwnershipChannel)
+7. [Select](#Select)
+
+<!-- /MarkdownTOC -->
+</details>
+
+<a id="What_is_Concurrency"></a>
+# What is Concurrency?
+- Concurrency is about multiple thinks happening at the same time.
+- Go provides built in support for concurrency.
+
+<a id="Why_we_need_to_think_about_Concurrency"></a>
 ## Why we need to think about Concurrency?
 ```
 func Add(numbers[]int) int64 {
@@ -20,7 +46,8 @@ Our target is to run the function in multiple cores.
 - Parallelism is the ability to execute multiple computations in simultaneous.
 - Concurrency enables parallelism.
 
-## What is a Process?
+<a id="What_is_a_Process"></a>
+# What is a Process?
 
 - An instance of a running program.
 - Process provides environment for running a program.
@@ -37,6 +64,7 @@ Our target is to run the function in multiple cores.
 - Stacks -> Used to store local variables.
 - Heap -> Dynamic memory allocation.
 
+<a id="What_is_a_Thread"></a>
 ## What is a Thread?
 - Threads are the smallest units of execution.
 - Process has at least one thread main thread
@@ -56,7 +84,8 @@ Our target is to run the function in multiple cores.
 - Threads share the same memory space.
 - Threads can run concurrently in parallel.
 
-## Thread States
+<a id="Thread_States"></a>
+### Thread States
 - When the process is created, the main thread is put into the ready queue. It's in the runnable state.
 - Once the CPU is available, the thread starts to execute and each thread given a time slice.
 - If that time slice is over, the thread is put back into the ready queue.
@@ -64,7 +93,8 @@ Our target is to run the function in multiple cores.
 
 Runnable --Scheduler Dispatch--> Executing --I/O or event wait--> Waiting --I/O or event completion--> Runnable
 
-## C10k Problem
+<a id="C10k"></a>
+### C10k Problem
 The C10k problem is the problem of optimizing network sockets to handle a large number of clients at the same time.
 ![alt text](http://monkey.org/~provos/libevent/libevent-benchmark.jpg)
 
@@ -77,7 +107,8 @@ Go's Concurrency Tool Set
 - Select -> Select is used to multiplex the channels.
 - Sync -> Sync is used to synchronize the execution of goroutines.
 
-## Goroutines
+<a id="Goroutines"></a>
+# Goroutines
  - Goroutines extremely lightweight.
  - Starts with 2kb of stack, which grows and shrinks as needed.
  - Low CPU overhead.
@@ -85,13 +116,15 @@ Go's Concurrency Tool Set
  - Go runtime creates worker OS threads.
  - Goroutines run in the context of OS thread.
 
-## M:N Scheduling
+<a id="Scheduling"></a>
+### M:N Scheduling
 - Go Scheduler runs in user space.
 - Go Scheduler runs in the context of OS thread.
 - Go runtime create number of worker OS threads, equal to the number of CPUs (GOMAXPROCS).
 - Go Scheduler distributes runnable goroutines over multiple OS threads.
 
-## Channels
+<a id="Channels"></a>
+# Channels
 - Channels are used to communicate between goroutines.
 - Sync with Goroutines.
 - Typed.
@@ -106,17 +139,23 @@ Go's Concurrency Tool Set
   - If the channel is closed, the second value will be false.
   - If the channel is not closed, the second value will be true.
 
+<a id="Range_Channel"></a>
 ### Range Channel
  - Iterate over values received from a channel.
  - Loop automatically stops when the channel is closed.
  - Range does not return a second boolean value.
 
+<a id="Unbuffered_Channel"></a>
 ### Unbuffered Channel
  - `make(chan <Type>)` allocate memory for channel.
+
+<a id="Buffered_Channel"></a>
 ### Buffered Channel
  - `make(chan <Type>, <Size>)` allocate memory for channel with buffer size.
  - in-memory FIFO queue.
  - Asynchronous.
+
+<a id="OwnershipChannel"></a>
 ### Ownership of channel avoids
  - Deadlocking by writing to nil channel.
  - Closing a nil channel.
@@ -125,7 +164,8 @@ Go's Concurrency Tool Set
 
 These are the reasons getting `panic`.
 
-## Select
+<a id="Select"></a>
+# Select
 ```
 select {
 case <-ch1:
