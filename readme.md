@@ -212,6 +212,12 @@ balance += amount
 - Mutex is used guards access to a shared resource.
 - The critical section represents the bottleneck between the goroutines.
 
+<a id="Atomic"></a>
 ###Atomic
+The primary mechanism for managing state in Go is communication over channels. We saw this for example with worker pools. There are a few other options for managing state though. Here we’ll look at using the sync/atomic package for atomic counters accessed by multiple goroutines.
+
+<a id="Conditional_Variable"></a>
+### Conditional Variables
+- Conditional variables is basically a container of goroutines that are waiting for a certain condition.
 
 
