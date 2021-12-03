@@ -23,7 +23,8 @@
    3. [Conditional Variable](#Conditional_Variable)
    4. [Sync Once](#Sync_Once)
    5. [Sync Pool](#Sync_Pool)
-
+9. [Patterns](#Patterns)
+   1. [Pipeline](#Pipeline)
 <!-- /MarkdownTOC -->
 </details>
 
@@ -220,4 +221,28 @@ The primary mechanism for managing state in Go is communication over channels. W
 ### Conditional Variables
 - Conditional variables is basically a container of goroutines that are waiting for a certain condition.
 
+<a id="Sync_Once"></a>
+### Sync Once
+- Run one-time initialization code.
+- Pretty useful in the creation of singletons.
 
+<a id="Sync_Pool"></a>
+### Sync Pool
+Lorem ipsum Lorem ipsum Lorem ipsum
+
+<a id="Patterns"></a>
+### Patterns
+<a id="Pipeline"></a>
+#### Pipeline
+- Process streams, or batches of data.
+G1->G2->G3->G4->G5
+
+Example:
+- `G1: Generate a list of images.`
+- `G2: Generate a list of thumbnails.`
+- `G3: Store the thumbnails in a database.`
+
+What are pipeline used for?
+- Used to process Streams or batches of data.
+- Enable us to make an efficient use of CPU and memory.
+- Series of stages, connected by channels.
