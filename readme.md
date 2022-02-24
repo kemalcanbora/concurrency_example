@@ -25,6 +25,7 @@
    5. [Sync Pool](#Sync_Pool)
 9. [Patterns](#Patterns)
    1. [Pipeline](#Pipeline)
+10. [Context](#Context)
 <!-- /MarkdownTOC -->
 </details>
 
@@ -246,3 +247,20 @@ What are pipeline used for?
 - Used to process Streams or batches of data.
 - Enable us to make an efficient use of CPU and memory.
 - Series of stages, connected by channels.
+
+<a id="Context"></a>
+#### Context
+ - Provides API's for cancellation branches of call-graph.
+ - Provides a data-bag for transporting request-scoped data.
+
+Background: 
+ - Background return an empty context.
+ - Root of any context tree
+ - It is never canceled, has no value and has no deadline.
+ - Typically, used by main functions.
+ - 
+Todo:
+ - `TODO()` return an empty context.
+ - It is use when we don't know which context to utilize.
+ - Intended purpose is to serve as placeholder.
+
